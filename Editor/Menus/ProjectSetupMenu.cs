@@ -16,7 +16,7 @@ namespace JS
 
 	public class Templating
 	{
-		[MenuItem("Project Setup/Assets/Choose", false, -10)]
+		[MenuItem("Project Setup/Assets/Search", false, -10)]
 		public static void CustomizeProject()
 		{
 			var dialog = PackageTemplateDialog

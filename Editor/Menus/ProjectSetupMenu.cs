@@ -94,6 +94,7 @@ namespace JS
 		    if (!dialog) return;
 		    File.Delete(dir);
 		    File.WriteAllText(dir,"{ \"dependencies\": { } }");
+			AssetDatabase.Refresh();
 	    }
 	    
     }

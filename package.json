@@ -1,0 +1,20 @@
+{
+    "name": "com.js.shared",
+    "version":"0.0.1-preview.1",
+    "displayName":"JS (Shared)",
+    "description":"Some foundational code and systems for most unity projects.",
+    "dependencies":{
+        "com.unity.nuget.newtonsoft-json":"3.2.1"
+    },
+    "samples":[
+        {
+            "displayName":"Tour",
+            "description":"A Feature tour of the Pyrus package.",
+            "path":"Samples~/Tour"
+        }
+    ],
+    "author": {
+        "name":"Jason Storey",
+        "email":"jasonstoreyireland@gmail.com"
+    }
+}

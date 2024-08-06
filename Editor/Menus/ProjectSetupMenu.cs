@@ -80,6 +80,24 @@ namespace JS
     public class PackageConfigMenu
     {
 
+	    [MenuItem("Project Setup/Presets/Just Essentials")]
+	    public static void JustEssentials()
+	    {
+		    var dir = Path.Combine(Application.dataPath, "../Packages/manifest.json");
+		    if (!File.Exists(dir)) return;
+		    var dialog = EditorUtility.DisplayDialog("Clear All Packages",
+			    "Are you sure? It will remove everything, including this menu!", 
+			    "Clear Packages", "Cancel", DialogOptOutDecisionType.ForThisSession,"clear-packages");
+		    if (!dialog) return;
+		    File.Delete(dir);
+		    File.WriteAllText(dir,"{ \"dependencies\": { } }");
+		    Packages.Install(
+			    "com.unity.ide.rider",
+			    "com.unity.modules.imgui",
+			    "com.unity.modules.jsonserialize","git+https://github.com/JStoreyDev/Shared.git");
+			   
+			   AssetDatabase.Refresh();
+	    }
 
 	    
 

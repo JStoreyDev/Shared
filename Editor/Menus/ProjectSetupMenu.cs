@@ -7,11 +7,24 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
+using UnityEngine;
 using static JS.Assets;
 using Debug = UnityEngine.Debug;
 
 namespace JS
 {
+
+	public class Templating
+	{
+		[MenuItem("Project Setup/Assets/Choose", false, -10)]
+		public static void CustomizeProject()
+		{
+			var dialog = PackageTemplateDialog
+				.Show("Install Assets", "");
+			if (string.IsNullOrEmpty(dialog)) return;
+		}
+	}
+	
     public class Assets
     {
         public static string AssetStore5 =>
@@ -27,7 +40,8 @@ namespace JS
             var filePath = Path.Combine(AssetStore5, folder, asset);
             if (!File.Exists(filePath))
             {
-                Debug.LogError($"File not found: {filePath}");
+                Debug.LogWarning($"Asset '{filePath}' Not Download. Please Download it from Package Manager first.");
+                Packages.OpenPackageManager();
                 return;
             }
 
@@ -58,14 +72,37 @@ namespace JS
 		    await Task.Delay(1000);
 		    Begin();
 	    }
+
+
+	    public static void OpenPackageManager() => EditorApplication.ExecuteMenuItem("Window/Package Manager");
     }
 
+    public class PackageConfigMenu
+    {
+
+
+	    
+
+	    [MenuItem("Project Setup/Packages/Config/Clear All")]
+	    public static void ClearPackages()
+	    {
+		    var dir = Path.Combine(Application.dataPath, "../Packages/manifest.json");
+		    if (!File.Exists(dir)) return;
+		    var dialog = EditorUtility.DisplayDialog("Clear All Packages",
+			    "Are you sure? It will remove everything, including this menu!", 
+			    "Clear Packages", "Cancel", DialogOptOutDecisionType.ForThisSession,"clear-packages");
+		    if (!dialog) return;
+		    File.Delete(dir);
+		    File.WriteAllText(dir,"{ \"dependencies\": { } }");
+	    }
+	    
+    }
 
     public class PackageInstallMenu
     {
 	    [MenuItem("Project Setup/Packages/Open Manager")]
-	    public static void OpenPackageManager() => 
-		    EditorApplication.ExecuteMenuItem("Window/Package Manager");
+	    public static void OpenPackageManager() => Packages.OpenPackageManager();
+		 
 
 
 	    [MenuItem("Project Setup/Packages/Install/Favourites/Newtonsoft JSON")]
@@ -115,9 +152,6 @@ namespace JS
 	    [MenuItem("Project Setup/Packages/Install/Unity/VFX Graph")]
 	    static void AddVFXGraph() => 
 		    Packages.InstallUnityPackage("visualeffectsgraph");
-
-	    
-
     }
 
 

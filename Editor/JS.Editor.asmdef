@@ -1,7 +1,7 @@
 {
     "name": "JS.Editor",
     "rootNamespace": "",
-    "references": [],
+    "references": ["GUID:9dd86b4cf536bc540b3a638d0d568172"],
     "includePlatforms": [
         "Editor"
     ],

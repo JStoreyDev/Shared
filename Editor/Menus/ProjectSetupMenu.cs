@@ -85,17 +85,59 @@ namespace JS
 	    {
 		    var dir = Path.Combine(Application.dataPath, "../Packages/manifest.json");
 		    if (!File.Exists(dir)) return;
-		    var dialog = EditorUtility.DisplayDialog("Clear All Packages",
-			    "Are you sure? It will remove everything, including this menu!", 
-			    "Clear Packages", "Cancel", DialogOptOutDecisionType.ForThisSession,"clear-packages");
+		    var dialog = EditorUtility.DisplayDialog("Install Essentials",
+			    "This will install \nRider\nImgui\nJsonDotNet\nAre you sure?", 
+			    "Install", "Cancel");
 		    if (!dialog) return;
 		    File.Delete(dir);
 		    File.WriteAllText(dir,"{ \"dependencies\": { } }");
+		    
 		    Packages.Install(
 			    "com.unity.ide.rider",
 			    "com.unity.modules.imgui",
-			    "com.unity.modules.jsonserialize","git+https://github.com/JStoreyDev/Shared.git");
-			   
+			    "com.unity.modules.jsonserialize","com.unity.nuget.newtonsoft-json",
+			    "git+https://github.com/JStoreyDev/Shared.git");
+			   AssetDatabase.Refresh();
+	    }
+	    
+	    [MenuItem("Project Setup/Presets/Quick Start")]
+	    public static void QuickStart()
+	    {
+		    var dir = Path.Combine(Application.dataPath, "../Packages/manifest.json");
+		    if (!File.Exists(dir)) return;
+		    var dialog = EditorUtility.DisplayDialog("Install QuickStart",
+			    "This will install \nRider\nImgui\nJsonDotNet\nUnity Input System\nCinemachine\nPSD Importer\nAre you sure?", 
+			    "Install", "Cancel");
+		    if (!dialog) return;
+		    File.Delete(dir);
+		    File.WriteAllText(dir,"{ \"dependencies\": { } }");
+		    
+		    Packages.Install(
+			    "com.unity.ide.rider",
+			    "com.unity.modules.imgui",
+			    "com.unity.modules.jsonserialize","com.unity.nuget.newtonsoft-json",
+			    "com.unity.inputsystem",
+			    "com.unity.cinemachine",
+			    "com.unity.2d.psdimporter",
+			    "git+https://github.com/JStoreyDev/Shared.git");
+			   AssetDatabase.Refresh();
+	    }
+	    
+	    [MenuItem("Project Setup/Presets/Prototyping")]
+	    public static void Prototyping()
+	    {
+		    var dir = Path.Combine(Application.dataPath, "../Packages/manifest.json");
+		    if (!File.Exists(dir)) return;
+		    var dialog = EditorUtility.DisplayDialog("Install Prototyping",
+			    "This will install \nProBuilder\nPolyBrush\nAre you sure?", 
+			    "Install", "Cancel");
+		    if (!dialog) return;
+		    File.Delete(dir);
+		    File.WriteAllText(dir,"{ \"dependencies\": { } }");
+		    
+		    Packages.Install(
+			    "com.unity.probuilder",
+			    "com.unity.polybrush");
 			   AssetDatabase.Refresh();
 	    }
 

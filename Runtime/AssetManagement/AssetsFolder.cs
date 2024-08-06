@@ -81,8 +81,8 @@ namespace JS
         {
             _searchCache ??= new Dictionary<string, AssetInfo>();
             _searchCache.Clear();
-            foreach (var asset in _cachedAssets) _searchCache[asset.Name] = asset;
-            _autocomplete = Autocomplete.Create(_cachedAssets.Select(x => x.Name).ToList());
+            foreach (var asset in _cachedAssets) _searchCache[asset.Name+" "+asset.Publisher] = asset;
+            _autocomplete = Autocomplete.Create(_cachedAssets.Select(x => x.Name+" "+x.Publisher).ToList());
         }
 
 
